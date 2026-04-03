@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>GPU Monitor</title>
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background: #f0f2f5;
+    color: #333;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .timestamp {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #555;
+  }
+
+  .clusters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .cluster {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    width: 300px;
+  }
+
+  .cluster h2 {
+    margin-top: 0;
+    font-size: 1.2em;
+    text-align: center;
+  }
+
+  .gpu {
+    background: #f8f9fa;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+  }
+
+  .gpu .label {
+    font-size: 14px;
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .bar-container {
+    background: #e0e0e0;
+    height: 12px;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .bar {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.3s;
+  }
+
+  .bar.util-low { background: #22c55e; }    /* green */
+  .bar.util-medium { background: #f59e0b; } /* yellow */
+  .bar.util-high { background: #ef4444; }   /* red */
+
+  .gpu .mem {
+    font-size: 12px;
+    color: #666;
+    margin-top: 3px;
+  }
+</style>
+</head>
+<body>
+
+<h1>🖥️ GPU Dashboard</h1>
+<div class="timestamp" id="timestamp">Loading...</div>
+
+<div class="clusters" id="content"></div>
+
+<script>
+async function loadData() {
+  try {
+    const res = await fetch('gpu_status.json?t=' + Date.now());
+    const data = await res.json();
+
+    // Replace this line:
+document.getElementById('timestamp').textContent = "Last update: " + data.timestamp;
+
+// With this function to convert UTC → UTC+8
+function formatUTC8(utcString) {
+  const d = new Date(utcString + " UTC"); // parse as UTC
+  d.setHours(d.getHours() + 8);           // add 8 hours
+  return d.toISOString().replace("T", " ").replace(/\..+/, "") + " (UTC+8)";
+}
+
+document.getElementById('timestamp').textContent =
+  "Last update: " + formatUTC8(data.timestamp);
+
+    const container = document.getElementById('content');
+    container.innerHTML = "";
+
+    for (const [server, info] of Object.entries(data.servers)) {
+      const clusterDiv = document.createElement('div');
+      clusterDiv.className = 'cluster';
+
+      const title = document.createElement('h2');
+      title.textContent = server;
+      clusterDiv.appendChild(title);
+
+      if (!info.gpus) {
+        clusterDiv.appendChild(document.createTextNode("No GPU data"));
+        container.appendChild(clusterDiv);
+        continue;
+      }
+
+      info.gpus.forEach(gpu => {
+        const gpuDiv = document.createElement('div');
+        gpuDiv.className = 'gpu';
+
+        const name = gpu["name"] || "Unknown GPU";
+        const util = gpu["utilization.gpu"] || 0;
+        const temperature = gpu["temperature.gpu"] || 0;
+        const memUsed = gpu["memory.used"] || 0;
+        const memTotal = gpu["memory.total"] || 1;
+        const memPercent = (memUsed / memTotal * 100).toFixed(1);
+
+        // determine bar color like gpustat
+        let levelClass = "util-low";
+        if (memPercent > 80) levelClass = "util-high";
+        else if (memPercent > 40) levelClass = "util-medium";
+
+        gpuDiv.innerHTML = `
+          <div class="label">
+            <span>GPU ${gpu.index}: ${gpu.name}</span>
+            <span>${memPercent}%</span>
+          </div>
+          <div class="bar-container">
+            <div class="bar ${levelClass}" style="width:${memPercent}%;"></div>
+          </div>
+          <div class="mem">Memory: ${memUsed}/${memTotal} MB (${memPercent}%)</div>
+          <div class="mem">Utilization: ${util}%; Temperature: ${temperature}&deg;C;</div>
+        `;
+        clusterDiv.appendChild(gpuDiv);
+      });
+
+      container.appendChild(clusterDiv);
+    }
+
+  } catch (err) {
+    document.getElementById('timestamp').textContent = "Error loading GPU data.";
+    console.error(err);
+  }
+}
+
+loadData();
+setInterval(loadData, 60000);
+</script>
+
+</body>
+</html>
