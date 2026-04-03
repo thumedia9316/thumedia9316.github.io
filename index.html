@@ -99,10 +99,24 @@ document.getElementById('timestamp').textContent = "Last update: " + data.timest
 
 // With this function to convert UTC → UTC+8
 function formatUTC8(utcString) {
-  const d = new Date(utcString + " UTC"); // parse as UTC
-  d.setHours(d.getHours() + 8);           // add 8 hours
-  return d.toISOString().replace("T", " ").replace(/\..+/, "") + " (UTC+8)";
-}
+    try {
+      // Convert "YYYY-MM-DD HH:mm:ss UTC"
+      // → "YYYY-MM-DDTHH:mm:ssZ" (valid ISO 8601)
+      const isoString = utcString
+        .replace(" UTC", "")
+        .replace(" ", "T") + "Z";
+  
+      const d = new Date(isoString);
+  
+      if (isNaN(d)) return "Invalid timestamp";
+  
+      d.setHours(d.getHours() + 8);
+  
+      return d.toISOString().replace("T", " ").replace(/\..+/, "") + " (UTC+8)";
+    } catch (e) {
+      return "Invalid timestamp";
+    }
+  }
 
 document.getElementById('timestamp').textContent =
   "Last update: " + formatUTC8(data.timestamp);
