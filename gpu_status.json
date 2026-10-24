@@ -1,18 +1,18 @@
 {
-  "timestamp": "2026-10-24 11:45:23 UTC",
+  "timestamp": "2026-10-24 12:00:24 UTC",
   "servers": {
     "cluster33": {
     "hostname": "cluster33",
-    "query_time": "2026-10-24T11:45:02.465134",
+    "query_time": "2026-10-24T12:00:03.220653",
     "gpus": [
         {
             "index": 0,
             "uuid": "GPU-4b885809-98cb-54b5-315f-d2550f6a1aac",
             "name": "NVIDIA GeForce RTX 3090",
-            "temperature.gpu": 90,
-            "fan.speed": 47,
+            "temperature.gpu": 87,
+            "fan.speed": 50,
             "utilization.gpu": 100,
-            "power.draw": 290,
+            "power.draw": 204,
             "enforced.power.limit": 350,
             "memory.used": 23230,
             "memory.total": 24576,
@@ -29,10 +29,10 @@
             "index": 1,
             "uuid": "GPU-a9a7487c-9451-07b0-850d-1ffde725c539",
             "name": "NVIDIA GeForce RTX 3090",
-            "temperature.gpu": 88,
-            "fan.speed": 53,
+            "temperature.gpu": 84,
+            "fan.speed": 57,
             "utilization.gpu": 100,
-            "power.draw": 302,
+            "power.draw": 189,
             "enforced.power.limit": 350,
             "memory.used": 23232,
             "memory.total": 24576,
@@ -49,10 +49,10 @@
             "index": 2,
             "uuid": "GPU-44dd878e-f992-d961-9ada-b254a0d6bef9",
             "name": "NVIDIA GeForce RTX 3090",
-            "temperature.gpu": 72,
-            "fan.speed": 37,
-            "utilization.gpu": 49,
-            "power.draw": 285,
+            "temperature.gpu": 73,
+            "fan.speed": 38,
+            "utilization.gpu": 100,
+            "power.draw": 185,
             "enforced.power.limit": 350,
             "memory.used": 23226,
             "memory.total": 24576,
@@ -69,10 +69,10 @@
             "index": 3,
             "uuid": "GPU-92abbadb-32ce-52ea-a581-ad2bdf37cffd",
             "name": "NVIDIA GeForce RTX 3090",
-            "temperature.gpu": 87,
-            "fan.speed": 48,
-            "utilization.gpu": 76,
-            "power.draw": 288,
+            "temperature.gpu": 85,
+            "fan.speed": 47,
+            "utilization.gpu": 100,
+            "power.draw": 200,
             "enforced.power.limit": 350,
             "memory.used": 23238,
             "memory.total": 24576,
@@ -89,10 +89,10 @@
             "index": 4,
             "uuid": "GPU-cd506af7-0384-e7a0-4479-273045eb076a",
             "name": "NVIDIA GeForce RTX 3090",
-            "temperature.gpu": 85,
-            "fan.speed": 62,
+            "temperature.gpu": 81,
+            "fan.speed": 69,
             "utilization.gpu": 100,
-            "power.draw": 317,
+            "power.draw": 206,
             "enforced.power.limit": 350,
             "memory.used": 23236,
             "memory.total": 24576,
@@ -109,10 +109,10 @@
             "index": 5,
             "uuid": "GPU-05f63100-c6a8-57d1-caa7-5d895c2bbaf7",
             "name": "NVIDIA GeForce RTX 3090",
-            "temperature.gpu": 77,
-            "fan.speed": 60,
+            "temperature.gpu": 74,
+            "fan.speed": 65,
             "utilization.gpu": 100,
-            "power.draw": 317,
+            "power.draw": 189,
             "enforced.power.limit": 350,
             "memory.used": 23230,
             "memory.total": 24576,
@@ -130,43 +130,127 @@
     "cluster34": {
     "hostname": "cluster34",
     "driver_version": "530.30.02",
-    "query_time": "2026-10-24T11:45:03.493530",
+    "query_time": "2026-10-24T12:00:04.255143",
     "gpus": [
         {
             "index": 0,
             "uuid": "GPU-bef059db-1495-2d3a-37b2-ba435ade6035",
             "name": "Tesla V100-PCIE-32GB",
-            "temperature.gpu": 27,
+            "temperature.gpu": 60,
             "fan.speed": null,
-            "utilization.gpu": 0,
+            "utilization.gpu": 81,
             "utilization.enc": 0,
             "utilization.dec": 0,
-            "power.draw": 25,
+            "power.draw": 132,
             "enforced.power.limit": 250,
-            "memory.used": 0,
+            "memory.used": 2270,
             "memory.total": 32768,
-            "processes": []
+            "processes": [
+                {
+                    "username": "wanth21",
+                    "command": "python",
+                    "full_command": [
+                        "/DATA/DATANAS1/wanth21/DyGFM/experiments/icl_advance/envs/dtgb/bin/python",
+                        "-u",
+                        "train_DDGPrompt_finetune_eval.py",
+                        "--checkpoint",
+                        "/DATA/DATANAS1/wanth21/DyGFM/experiments/results/mdmt5_fewshot_20261009/DyGFormer/checkpoints/latest.pt",
+                        "--dataset_names",
+                        "Enron,GDELT_10cls,Amazon_movies_730ts,MOOC,Reddit,ICEWS_10cls,Yelp_365ts,Wikipedia,ICEWS_dif10cls,Stack_elec_1825ts,Stack_ubuntu_1825ts",
+                        "--tasks",
+                        "lp,ec,nc",
+                        "--num_shots",
+                        "256",
+                        "--num_epochs",
+                        "50",
+                        "--val_interval",
+                        "5",
+                        "--batch_size",
+                        "512",
+                        "--learning_rate",
+                        "1e-3",
+                        "--prompt_learning_rate",
+                        "1e-2",
+                        "--feature_l2",
+                        "0.01",
+                        "--prompt_bottleneck_dim",
+                        "8",
+                        "--seed",
+                        "0",
+                        "--gpu",
+                        "0",
+                        "--output",
+                        "/DATA/DATANAS1/wanth21/DyGFM/experiments/results/ddgprompt_mdmt5_multiseed_20261024/seed0/result.json"
+                    ],
+                    "gpu_memory_usage": 2266,
+                    "cpu_percent": 89.6,
+                    "cpu_memory_usage": 4661465088,
+                    "pid": 17936
+                }
+            ]
         },
         {
             "index": 1,
             "uuid": "GPU-fda42746-90f7-3bed-2609-b45aa0002b86",
             "name": "Tesla V100-PCIE-32GB",
-            "temperature.gpu": 26,
+            "temperature.gpu": 64,
             "fan.speed": null,
-            "utilization.gpu": 0,
+            "utilization.gpu": 84,
             "utilization.enc": 0,
             "utilization.dec": 0,
-            "power.draw": 23,
+            "power.draw": 145,
             "enforced.power.limit": 250,
-            "memory.used": 0,
+            "memory.used": 2270,
             "memory.total": 32768,
-            "processes": []
+            "processes": [
+                {
+                    "username": "wanth21",
+                    "command": "python",
+                    "full_command": [
+                        "/DATA/DATANAS1/wanth21/DyGFM/experiments/icl_advance/envs/dtgb/bin/python",
+                        "-u",
+                        "train_DDGPrompt_finetune_eval.py",
+                        "--checkpoint",
+                        "/DATA/DATANAS1/wanth21/DyGFM/experiments/results/mdmt5_multiseed_20261014/DyGFormer/seed1/checkpoints/latest.pt",
+                        "--dataset_names",
+                        "Enron,GDELT_10cls,Amazon_movies_730ts,MOOC,Reddit,ICEWS_10cls,Yelp_365ts,Wikipedia,ICEWS_dif10cls,Stack_elec_1825ts,Stack_ubuntu_1825ts",
+                        "--tasks",
+                        "lp,ec,nc",
+                        "--num_shots",
+                        "256",
+                        "--num_epochs",
+                        "50",
+                        "--val_interval",
+                        "5",
+                        "--batch_size",
+                        "512",
+                        "--learning_rate",
+                        "1e-3",
+                        "--prompt_learning_rate",
+                        "1e-2",
+                        "--feature_l2",
+                        "0.01",
+                        "--prompt_bottleneck_dim",
+                        "8",
+                        "--seed",
+                        "1",
+                        "--gpu",
+                        "0",
+                        "--output",
+                        "/DATA/DATANAS1/wanth21/DyGFM/experiments/results/ddgprompt_mdmt5_multiseed_20261024/seed1/result.json"
+                    ],
+                    "gpu_memory_usage": 2266,
+                    "cpu_percent": 99.7,
+                    "cpu_memory_usage": 4676022272,
+                    "pid": 17946
+                }
+            ]
         }
     ]
 },
     "cluster35": {
     "hostname": "cluster35",
-    "query_time": "2026-10-24T19:45:04.605890",
+    "query_time": "2026-10-24T20:00:05.367132",
     "gpus": [
         {
             "index": 0,
@@ -268,25 +352,25 @@
                     "username": "rwang0109",
                     "command": "N_Island_0",
                     "gpu_memory_usage": 4,
-                    "pid": 1010402
+                    "pid": 1014048
                 },
                 {
                     "username": "rwang0109",
                     "command": "N_Island_0",
                     "gpu_memory_usage": 4,
-                    "pid": 1011397
+                    "pid": 1015527
                 },
                 {
                     "username": "rwang0109",
                     "command": "N_Island_0",
                     "gpu_memory_usage": 4,
-                    "pid": 1011689
+                    "pid": 1016375
                 },
                 {
                     "username": "rwang0109",
                     "command": "N_Island_0",
                     "gpu_memory_usage": 4,
-                    "pid": 1012540
+                    "pid": 1019589
                 }
             ]
         },
@@ -296,10 +380,10 @@
             "name": "NVIDIA GeForce RTX 3090",
             "temperature.gpu": 68,
             "fan.speed": 100,
-            "utilization.gpu": 59,
-            "power.draw": 219,
+            "utilization.gpu": 96,
+            "power.draw": 224,
             "enforced.power.limit": 350,
-            "memory.used": 7802,
+            "memory.used": 7803,
             "memory.total": 24576,
             "processes": [
                 {
@@ -311,14 +395,14 @@
                 {
                     "username": "rwang0109",
                     "command": "N_Island_0",
-                    "gpu_memory_usage": 2166,
-                    "pid": 1010402
+                    "gpu_memory_usage": 2167,
+                    "pid": 1014048
                 },
                 {
                     "username": "rwang0109",
                     "command": "N_Island_0",
-                    "gpu_memory_usage": 2166,
-                    "pid": 1010402
+                    "gpu_memory_usage": 2167,
+                    "pid": 1014048
                 }
             ]
         },
@@ -326,12 +410,12 @@
             "index": 2,
             "uuid": "GPU-9292c758-057a-f2d5-712a-a4047f7f9a38",
             "name": "NVIDIA GeForce RTX 3090",
-            "temperature.gpu": 62,
-            "fan.speed": 60,
-            "utilization.gpu": 53,
-            "power.draw": 269,
+            "temperature.gpu": 61,
+            "fan.speed": 62,
+            "utilization.gpu": 51,
+            "power.draw": 246,
             "enforced.power.limit": 350,
-            "memory.used": 7769,
+            "memory.used": 7648,
             "memory.total": 24576,
             "processes": [
                 {
@@ -343,14 +427,14 @@
                 {
                     "username": "rwang0109",
                     "command": "N_Island_0",
-                    "gpu_memory_usage": 2197,
-                    "pid": 1011397
+                    "gpu_memory_usage": 2075,
+                    "pid": 1019589
                 },
                 {
                     "username": "rwang0109",
                     "command": "N_Island_0",
-                    "gpu_memory_usage": 2197,
-                    "pid": 1011397
+                    "gpu_memory_usage": 2075,
+                    "pid": 1019589
                 }
             ]
         },
@@ -360,8 +444,8 @@
             "name": "NVIDIA GeForce RTX 3090",
             "temperature.gpu": 68,
             "fan.speed": 71,
-            "utilization.gpu": 48,
-            "power.draw": 250,
+            "utilization.gpu": 63,
+            "power.draw": 281,
             "enforced.power.limit": 350,
             "memory.used": 7748,
             "memory.total": 24576,
@@ -390,12 +474,12 @@
             "index": 4,
             "uuid": "GPU-ddab871c-d50c-3b73-b794-5bd95803752b",
             "name": "NVIDIA GeForce RTX 3090",
-            "temperature.gpu": 61,
-            "fan.speed": 78,
-            "utilization.gpu": 42,
-            "power.draw": 206,
+            "temperature.gpu": 66,
+            "fan.speed": 100,
+            "utilization.gpu": 53,
+            "power.draw": 275,
             "enforced.power.limit": 350,
-            "memory.used": 7627,
+            "memory.used": 7788,
             "memory.total": 24576,
             "processes": [
                 {
@@ -407,14 +491,14 @@
                 {
                     "username": "rwang0109",
                     "command": "N_Island_0",
-                    "gpu_memory_usage": 2035,
-                    "pid": 1012540
+                    "gpu_memory_usage": 2195,
+                    "pid": 1016375
                 },
                 {
                     "username": "rwang0109",
                     "command": "N_Island_0",
-                    "gpu_memory_usage": 2035,
-                    "pid": 1012540
+                    "gpu_memory_usage": 2195,
+                    "pid": 1016375
                 }
             ]
         },
@@ -422,12 +506,12 @@
             "index": 5,
             "uuid": "GPU-402e0320-b94c-f231-5c78-263b63cec936",
             "name": "NVIDIA GeForce RTX 3090",
-            "temperature.gpu": 70,
-            "fan.speed": 88,
-            "utilization.gpu": 44,
-            "power.draw": 256,
+            "temperature.gpu": 69,
+            "fan.speed": 93,
+            "utilization.gpu": 71,
+            "power.draw": 279,
             "enforced.power.limit": 350,
-            "memory.used": 7811,
+            "memory.used": 7796,
             "memory.total": 24576,
             "processes": [
                 {
@@ -439,14 +523,14 @@
                 {
                     "username": "rwang0109",
                     "command": "N_Island_0",
-                    "gpu_memory_usage": 2179,
-                    "pid": 1011689
+                    "gpu_memory_usage": 2165,
+                    "pid": 1015527
                 },
                 {
                     "username": "rwang0109",
                     "command": "N_Island_0",
-                    "gpu_memory_usage": 2179,
-                    "pid": 1011689
+                    "gpu_memory_usage": 2165,
+                    "pid": 1015527
                 }
             ]
         }
@@ -455,18 +539,18 @@
     "cluster36": {
     "hostname": "cluster36",
     "driver_version": "535.86.10",
-    "query_time": "2026-10-24T11:45:06.135233",
+    "query_time": "2026-10-24T12:00:06.529867",
     "gpus": [
         {
             "index": 0,
             "uuid": "GPU-127fd698-4561-94e3-a820-6573f68fcbc1",
             "name": "NVIDIA GeForce RTX 4090",
-            "temperature.gpu": 53,
+            "temperature.gpu": 48,
             "fan.speed": 39,
-            "utilization.gpu": 93,
+            "utilization.gpu": 96,
             "utilization.enc": 0,
             "utilization.dec": 0,
-            "power.draw": 236,
+            "power.draw": 198,
             "enforced.power.limit": 450,
             "memory.used": 8156,
             "memory.total": 24564,
@@ -493,8 +577,8 @@
                         "0"
                     ],
                     "gpu_memory_usage": 1928,
-                    "cpu_percent": 99.3,
-                    "cpu_memory_usage": 28863524864,
+                    "cpu_percent": 99.1,
+                    "cpu_memory_usage": 28863422464,
                     "pid": 706477
                 },
                 {
@@ -519,8 +603,8 @@
                         "0"
                     ],
                     "gpu_memory_usage": 1152,
-                    "cpu_percent": 99.3,
-                    "cpu_memory_usage": 12315021312,
+                    "cpu_percent": 99.4,
+                    "cpu_memory_usage": 12315033600,
                     "pid": 726284
                 },
                 {
@@ -547,8 +631,8 @@
                         "0"
                     ],
                     "gpu_memory_usage": 5058,
-                    "cpu_percent": 99.4,
-                    "cpu_memory_usage": 7626653696,
+                    "cpu_percent": 139.3,
+                    "cpu_memory_usage": 7602438144,
                     "pid": 734289
                 }
             ]
@@ -557,12 +641,12 @@
             "index": 1,
             "uuid": "GPU-27e3938a-c9bb-24e0-15ab-f6a391ed074e",
             "name": "NVIDIA GeForce RTX 4090",
-            "temperature.gpu": 49,
+            "temperature.gpu": 53,
             "fan.speed": 40,
-            "utilization.gpu": 99,
+            "utilization.gpu": 80,
             "utilization.enc": 0,
             "utilization.dec": 0,
-            "power.draw": 238,
+            "power.draw": 218,
             "enforced.power.limit": 450,
             "memory.used": 6998,
             "memory.total": 24564,
@@ -589,7 +673,7 @@
                         "1"
                     ],
                     "gpu_memory_usage": 1928,
-                    "cpu_percent": 99.3,
+                    "cpu_percent": 108.6,
                     "cpu_memory_usage": 28861849600,
                     "pid": 705529
                 },
@@ -617,8 +701,8 @@
                         "1"
                     ],
                     "gpu_memory_usage": 5058,
-                    "cpu_percent": 99.6,
-                    "cpu_memory_usage": 7601168384,
+                    "cpu_percent": 178.6,
+                    "cpu_memory_usage": 7626342400,
                     "pid": 724397
                 }
             ]
@@ -627,14 +711,14 @@
             "index": 2,
             "uuid": "GPU-e53bc8b5-4168-a9f7-ad4c-52436d9e3a70",
             "name": "NVIDIA GeForce RTX 4090",
-            "temperature.gpu": 34,
+            "temperature.gpu": 36,
             "fan.speed": 30,
             "utilization.gpu": 23,
             "utilization.enc": 0,
             "utilization.dec": 0,
-            "power.draw": 114,
+            "power.draw": 108,
             "enforced.power.limit": 450,
-            "memory.used": 1162,
+            "memory.used": 1163,
             "memory.total": 24564,
             "processes": [
                 {
@@ -659,8 +743,8 @@
                         "2"
                     ],
                     "gpu_memory_usage": 1152,
-                    "cpu_percent": 179.0,
-                    "cpu_memory_usage": 12350423040,
+                    "cpu_percent": 189.0,
+                    "cpu_memory_usage": 12350251008,
                     "pid": 730180
                 }
             ]
@@ -669,12 +753,12 @@
             "index": 3,
             "uuid": "GPU-6d9997f0-be2d-9c6e-6ece-154279d3780a",
             "name": "NVIDIA GeForce RTX 4090",
-            "temperature.gpu": 49,
+            "temperature.gpu": 47,
             "fan.speed": 36,
-            "utilization.gpu": 79,
+            "utilization.gpu": 80,
             "utilization.enc": 0,
             "utilization.dec": 0,
-            "power.draw": 188,
+            "power.draw": 185,
             "enforced.power.limit": 450,
             "memory.used": 3092,
             "memory.total": 24564,
@@ -701,8 +785,8 @@
                         "3"
                     ],
                     "gpu_memory_usage": 1928,
-                    "cpu_percent": 248.3,
-                    "cpu_memory_usage": 28858466304,
+                    "cpu_percent": 256.8,
+                    "cpu_memory_usage": 28858454016,
                     "pid": 705016
                 },
                 {
@@ -727,8 +811,8 @@
                         "3"
                     ],
                     "gpu_memory_usage": 1152,
-                    "cpu_percent": 159.3,
-                    "cpu_memory_usage": 12300738560,
+                    "cpu_percent": 148.9,
+                    "cpu_memory_usage": 12300750848,
                     "pid": 727276
                 }
             ]
@@ -737,12 +821,12 @@
             "index": 4,
             "uuid": "GPU-6dd6f207-85b7-8404-2c92-cfe7e7e6a2ba",
             "name": "NVIDIA GeForce RTX 4090",
-            "temperature.gpu": 44,
+            "temperature.gpu": 45,
             "fan.speed": 30,
-            "utilization.gpu": 24,
+            "utilization.gpu": 23,
             "utilization.enc": 0,
             "utilization.dec": 0,
-            "power.draw": 118,
+            "power.draw": 119,
             "enforced.power.limit": 450,
             "memory.used": 1161,
             "memory.total": 24564,
@@ -769,8 +853,8 @@
                         "4"
                     ],
                     "gpu_memory_usage": 1152,
-                    "cpu_percent": 199.3,
-                    "cpu_memory_usage": 12413792256,
+                    "cpu_percent": 169.1,
+                    "cpu_memory_usage": 12363563008,
                     "pid": 729212
                 }
             ]
@@ -779,16 +863,16 @@
 },
     "cluster38": {
     "hostname": "cluster38",
-    "query_time": "2026-10-24T11:45:07.391620",
+    "query_time": "2026-10-24T12:00:08.160396",
     "gpus": [
         {
             "index": 0,
             "uuid": "GPU-e8c7f00e-18ce-e617-f7aa-da069f311387",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 56,
+            "temperature.gpu": 54,
             "fan.speed": null,
-            "utilization.gpu": 63,
-            "power.draw": 256,
+            "utilization.gpu": 68,
+            "power.draw": 252,
             "enforced.power.limit": 400,
             "memory.used": 19315,
             "memory.total": 40960,
@@ -805,10 +889,10 @@
             "index": 1,
             "uuid": "GPU-d711d697-6960-1c55-33be-8ec26abb338d",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 47,
+            "temperature.gpu": 44,
             "fan.speed": null,
-            "utilization.gpu": 12,
-            "power.draw": 102,
+            "utilization.gpu": 52,
+            "power.draw": 173,
             "enforced.power.limit": 400,
             "memory.used": 30333,
             "memory.total": 40960,
@@ -825,24 +909,24 @@
 },
     "cluster39": {
     "hostname": "cluster39",
-    "query_time": "2026-10-24T11:45:08.024916",
+    "query_time": "2026-10-24T12:00:08.811784",
     "gpus": [
         {
             "index": 0,
             "uuid": "GPU-07148b60-627c-ee3b-3ae9-ec9a69bce3db",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 51,
+            "temperature.gpu": 52,
             "fan.speed": null,
-            "utilization.gpu": 100,
-            "power.draw": 225,
+            "utilization.gpu": 94,
+            "power.draw": 236,
             "enforced.power.limit": 400,
-            "memory.used": 39797,
+            "memory.used": 39799,
             "memory.total": 40960,
             "processes": [
                 {
                     "username": "wpj24-srt",
                     "command": "python",
-                    "gpu_memory_usage": 5890,
+                    "gpu_memory_usage": 5892,
                     "pid": 463023
                 },
                 {
@@ -857,10 +941,10 @@
             "index": 1,
             "uuid": "GPU-056c5310-789a-c0af-1d69-b4a1ebeb5ddd",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 53,
+            "temperature.gpu": 56,
             "fan.speed": null,
             "utilization.gpu": 100,
-            "power.draw": 150,
+            "power.draw": 197,
             "enforced.power.limit": 400,
             "memory.used": 30543,
             "memory.total": 40960,
@@ -883,10 +967,10 @@
             "index": 2,
             "uuid": "GPU-e82f9c04-dfde-ad3b-25d7-c1ec4441a319",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 42,
+            "temperature.gpu": 47,
             "fan.speed": null,
-            "utilization.gpu": 95,
-            "power.draw": 84,
+            "utilization.gpu": 100,
+            "power.draw": 239,
             "enforced.power.limit": 400,
             "memory.used": 39841,
             "memory.total": 40960,
@@ -915,7 +999,7 @@
             "index": 3,
             "uuid": "GPU-8d3eaa53-369a-9ad8-4b9d-c1c5b601402d",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 42,
+            "temperature.gpu": 45,
             "fan.speed": null,
             "utilization.gpu": 100,
             "power.draw": 58,
@@ -935,10 +1019,10 @@
             "index": 4,
             "uuid": "GPU-9441b5cd-d720-540f-dead-742905dbf5ec",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 45,
+            "temperature.gpu": 47,
             "fan.speed": null,
             "utilization.gpu": 100,
-            "power.draw": 155,
+            "power.draw": 139,
             "enforced.power.limit": 400,
             "memory.used": 24404,
             "memory.total": 40960,
@@ -979,10 +1063,10 @@
             "index": 5,
             "uuid": "GPU-16b41a0e-474c-678a-16b6-dcd49cf89bec",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 55,
+            "temperature.gpu": 27,
             "fan.speed": null,
-            "utilization.gpu": 52,
-            "power.draw": 188,
+            "utilization.gpu": 0,
+            "power.draw": 35,
             "enforced.power.limit": 400,
             "memory.used": 15892,
             "memory.total": 40960,
@@ -999,18 +1083,18 @@
             "index": 6,
             "uuid": "GPU-ec7b1061-842d-cb3b-885c-7171822c5bcd",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 48,
+            "temperature.gpu": 58,
             "fan.speed": null,
-            "utilization.gpu": 99,
-            "power.draw": 57,
+            "utilization.gpu": 100,
+            "power.draw": 213,
             "enforced.power.limit": 400,
-            "memory.used": 38225,
+            "memory.used": 38265,
             "memory.total": 40960,
             "processes": [
                 {
                     "username": "wpj24-srt",
                     "command": "python",
-                    "gpu_memory_usage": 4260,
+                    "gpu_memory_usage": 4300,
                     "pid": 463024
                 },
                 {
@@ -1027,8 +1111,8 @@
             "name": "NVIDIA A100-SXM4-40GB",
             "temperature.gpu": 41,
             "fan.speed": null,
-            "utilization.gpu": 58,
-            "power.draw": 86,
+            "utilization.gpu": 59,
+            "power.draw": 55,
             "enforced.power.limit": 400,
             "memory.used": 32247,
             "memory.total": 40960,
@@ -1051,24 +1135,24 @@
 },
     "cluster40": {
     "hostname": "cluster40",
-    "query_time": "2026-10-24T19:45:09.108189",
+    "query_time": "2026-10-24T20:00:10.312952",
     "gpus": [
         {
             "index": 0,
             "uuid": "GPU-0e2abb26-883f-5680-7e8b-e07c279ae5a5",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 35,
+            "temperature.gpu": 33,
             "fan.speed": null,
             "utilization.gpu": 99,
-            "power.draw": 85,
+            "power.draw": 79,
             "enforced.power.limit": 400,
-            "memory.used": 6963,
+            "memory.used": 7009,
             "memory.total": 40960,
             "processes": [
                 {
                     "username": "cjh",
                     "command": "N_Island_0",
-                    "gpu_memory_usage": 3749,
+                    "gpu_memory_usage": 3795,
                     "pid": 2251223
                 },
                 {
@@ -1086,7 +1170,7 @@
                 {
                     "username": "cjh",
                     "command": "N_Island_0",
-                    "gpu_memory_usage": 3749,
+                    "gpu_memory_usage": 3795,
                     "pid": 2251223
                 },
                 {
@@ -1101,10 +1185,10 @@
             "index": 1,
             "uuid": "GPU-030d2a5f-dc5a-127d-d171-f278ae99e7e3",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 31,
+            "temperature.gpu": 29,
             "fan.speed": null,
             "utilization.gpu": 99,
-            "power.draw": 66,
+            "power.draw": 69,
             "enforced.power.limit": 400,
             "memory.used": 9308,
             "memory.total": 40960,
@@ -1151,10 +1235,10 @@
             "index": 2,
             "uuid": "GPU-58375de7-a8aa-e327-2b05-ec6d1345517c",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 44,
+            "temperature.gpu": 39,
             "fan.speed": null,
-            "utilization.gpu": 95,
-            "power.draw": 202,
+            "utilization.gpu": 76,
+            "power.draw": 103,
             "enforced.power.limit": 400,
             "memory.used": 36737,
             "memory.total": 40960,
@@ -1243,12 +1327,12 @@
             "index": 3,
             "uuid": "GPU-76b85bd0-f2ff-f322-9f75-07658f743dfb",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 44,
+            "temperature.gpu": 40,
             "fan.speed": null,
             "utilization.gpu": 99,
-            "power.draw": 93,
+            "power.draw": 236,
             "enforced.power.limit": 400,
-            "memory.used": 20455,
+            "memory.used": 20457,
             "memory.total": 40960,
             "processes": [
                 {
@@ -1272,7 +1356,7 @@
                 {
                     "username": "wpj24-srt",
                     "command": "python",
-                    "gpu_memory_usage": 10746,
+                    "gpu_memory_usage": 10748,
                     "pid": 2721417
                 },
                 {
@@ -1299,12 +1383,12 @@
             "index": 4,
             "uuid": "GPU-e2aa0cab-8b14-5b4c-c147-422f14cfab3b",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 45,
+            "temperature.gpu": 47,
             "fan.speed": null,
             "utilization.gpu": 100,
-            "power.draw": 144,
+            "power.draw": 268,
             "enforced.power.limit": 400,
-            "memory.used": 32547,
+            "memory.used": 32605,
             "memory.total": 40960,
             "processes": [
                 {
@@ -1316,7 +1400,7 @@
                 {
                     "username": "cjh",
                     "command": "python",
-                    "gpu_memory_usage": 17252,
+                    "gpu_memory_usage": 17310,
                     "pid": 2490988
                 },
                 {
@@ -1343,10 +1427,10 @@
             "index": 5,
             "uuid": "GPU-8eb87886-6673-6f82-341d-aa543aa8e03c",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 27,
+            "temperature.gpu": 24,
             "fan.speed": null,
             "utilization.gpu": 0,
-            "power.draw": 36,
+            "power.draw": 35,
             "enforced.power.limit": 400,
             "memory.used": 26272,
             "memory.total": 40960,
@@ -1369,12 +1453,12 @@
             "index": 6,
             "uuid": "GPU-c8f7591e-030a-e5fc-bc2b-95c13a0d1f5c",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 38,
+            "temperature.gpu": 37,
             "fan.speed": null,
-            "utilization.gpu": 99,
-            "power.draw": 75,
+            "utilization.gpu": 100,
+            "power.draw": 74,
             "enforced.power.limit": 400,
-            "memory.used": 30294,
+            "memory.used": 30292,
             "memory.total": 40960,
             "processes": [
                 {
@@ -1392,7 +1476,7 @@
                 {
                     "username": "houhr26",
                     "command": "U_Mall_0",
-                    "gpu_memory_usage": 4141,
+                    "gpu_memory_usage": 4139,
                     "pid": 929709
                 },
                 {
@@ -1422,7 +1506,7 @@
                 {
                     "username": "houhr26",
                     "command": "U_Mall_0",
-                    "gpu_memory_usage": 4141,
+                    "gpu_memory_usage": 4139,
                     "pid": 929709
                 }
             ]
@@ -1431,16 +1515,16 @@
 },
     "cluster41": {
     "hostname": "cluster41",
-    "query_time": "2026-10-24T11:45:09.905105",
+    "query_time": "2026-10-24T12:00:11.092161",
     "gpus": [
         {
             "index": 0,
             "uuid": "GPU-0b571591-48ba-55b5-d7a8-27a7162fc4a9",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 58,
+            "temperature.gpu": 61,
             "fan.speed": null,
             "utilization.gpu": 100,
-            "power.draw": 80,
+            "power.draw": 288,
             "enforced.power.limit": 400,
             "memory.used": 30464,
             "memory.total": 40960,
@@ -1487,12 +1571,12 @@
             "index": 1,
             "uuid": "GPU-527b7eff-6277-1cde-b160-e38f634b621c",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 42,
+            "temperature.gpu": 29,
             "fan.speed": null,
-            "utilization.gpu": 49,
-            "power.draw": 145,
+            "utilization.gpu": 0,
+            "power.draw": 37,
             "enforced.power.limit": 400,
-            "memory.used": 17986,
+            "memory.used": 17985,
             "memory.total": 40960,
             "processes": [
                 {
@@ -1507,7 +1591,7 @@
             "index": 2,
             "uuid": "GPU-152f86d9-b8b4-f9ef-0c02-725572e43ad4",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 24,
+            "temperature.gpu": 22,
             "fan.speed": null,
             "utilization.gpu": 0,
             "power.draw": 29,
@@ -1527,10 +1611,10 @@
             "index": 3,
             "uuid": "GPU-871d4f40-18b0-994f-ecee-dcd8905a8955",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 25,
+            "temperature.gpu": 23,
             "fan.speed": null,
             "utilization.gpu": 0,
-            "power.draw": 34,
+            "power.draw": 33,
             "enforced.power.limit": 400,
             "memory.used": 31694,
             "memory.total": 40960,
@@ -1565,7 +1649,7 @@
             "index": 4,
             "uuid": "GPU-ae05bb03-3193-3b5d-8d9f-986931fe940c",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 24,
+            "temperature.gpu": 22,
             "fan.speed": null,
             "utilization.gpu": 0,
             "power.draw": 37,
@@ -1585,12 +1669,12 @@
             "index": 5,
             "uuid": "GPU-a7cdcad6-23a6-32bb-ff9b-3b4109754843",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 51,
+            "temperature.gpu": 44,
             "fan.speed": null,
-            "utilization.gpu": 99,
-            "power.draw": 258,
+            "utilization.gpu": 98,
+            "power.draw": 182,
             "enforced.power.limit": 400,
-            "memory.used": 28634,
+            "memory.used": 28626,
             "memory.total": 40960,
             "processes": [
                 {
@@ -1635,10 +1719,10 @@
             "index": 6,
             "uuid": "GPU-5734d1fa-98eb-ccd8-5280-ecd2e544325b",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 51,
+            "temperature.gpu": 39,
             "fan.speed": null,
-            "utilization.gpu": 100,
-            "power.draw": 230,
+            "utilization.gpu": 37,
+            "power.draw": 59,
             "enforced.power.limit": 400,
             "memory.used": 26658,
             "memory.total": 40960,
@@ -1668,18 +1752,18 @@
     "cluster42": {
     "hostname": "cluster42",
     "driver_version": "575.64.03",
-    "query_time": "2026-10-24T11:45:11.632792",
+    "query_time": "2026-10-24T12:00:12.754661",
     "gpus": [
         {
             "index": 0,
             "uuid": "GPU-418862be-3b12-fddb-411d-f3e7b391ff7b",
             "name": "NVIDIA A100-SXM4-80GB",
-            "temperature.gpu": 59,
+            "temperature.gpu": 57,
             "fan.speed": null,
             "utilization.gpu": 100,
             "utilization.enc": 0,
             "utilization.dec": 0,
-            "power.draw": 271,
+            "power.draw": 266,
             "enforced.power.limit": 400,
             "memory.used": 66093,
             "memory.total": 81920,
@@ -1692,8 +1776,8 @@
                         "train_wm_joint.py"
                     ],
                     "gpu_memory_usage": 422,
-                    "cpu_percent": 97.8,
-                    "cpu_memory_usage": 3368288256,
+                    "cpu_percent": 98.0,
+                    "cpu_memory_usage": 3368284160,
                     "pid": 802862
                 },
                 {
@@ -1721,8 +1805,8 @@
                         "CLIP_cat_lme"
                     ],
                     "gpu_memory_usage": 31926,
-                    "cpu_percent": 98.1,
-                    "cpu_memory_usage": 9705775104,
+                    "cpu_percent": 98.4,
+                    "cpu_memory_usage": 9705684992,
                     "pid": 1683313
                 },
                 {
@@ -1750,8 +1834,8 @@
                         "CLIP_cat_lme"
                     ],
                     "gpu_memory_usage": 23408,
-                    "cpu_percent": 88.5,
-                    "cpu_memory_usage": 10233364480,
+                    "cpu_percent": 98.7,
+                    "cpu_memory_usage": 10232332288,
                     "pid": 4187447
                 },
                 {
@@ -1776,8 +1860,8 @@
                         "0"
                     ],
                     "gpu_memory_usage": 4444,
-                    "cpu_percent": 98.6,
-                    "cpu_memory_usage": 28992192512,
+                    "cpu_percent": 148.4,
+                    "cpu_memory_usage": 28990836736,
                     "pid": 56930
                 },
                 {
@@ -1802,8 +1886,8 @@
                         "0"
                     ],
                     "gpu_memory_usage": 3242,
-                    "cpu_percent": 98.8,
-                    "cpu_memory_usage": 22817013760,
+                    "cpu_percent": 168.5,
+                    "cpu_memory_usage": 22816354304,
                     "pid": 160479
                 },
                 {
@@ -1828,8 +1912,8 @@
                         "0"
                     ],
                     "gpu_memory_usage": 2608,
-                    "cpu_percent": 89.2,
-                    "cpu_memory_usage": 13011636224,
+                    "cpu_percent": 99.4,
+                    "cpu_memory_usage": 13048467456,
                     "pid": 190298
                 }
             ]
@@ -1838,7 +1922,7 @@
             "index": 1,
             "uuid": "GPU-64a9fab7-153f-d9fa-a758-ac33ea505418",
             "name": "NVIDIA A100-SXM4-80GB",
-            "temperature.gpu": 54,
+            "temperature.gpu": 52,
             "fan.speed": null,
             "utilization.gpu": 100,
             "utilization.enc": 0,
@@ -1873,8 +1957,8 @@
                         "CLIP_cat_mask"
                     ],
                     "gpu_memory_usage": 24230,
-                    "cpu_percent": 98.5,
-                    "cpu_memory_usage": 10257661952,
+                    "cpu_percent": 108.3,
+                    "cpu_memory_usage": 10257625088,
                     "pid": 2453672
                 },
                 {
@@ -1906,8 +1990,8 @@
                         "hamster"
                     ],
                     "gpu_memory_usage": 19724,
-                    "cpu_percent": 98.8,
-                    "cpu_memory_usage": 7514423296,
+                    "cpu_percent": 108.7,
+                    "cpu_memory_usage": 7513403392,
                     "pid": 2453671
                 },
                 {
@@ -1936,7 +2020,7 @@
                     ],
                     "gpu_memory_usage": 23410,
                     "cpu_percent": 99.0,
-                    "cpu_memory_usage": 10133229568,
+                    "cpu_memory_usage": 10132938752,
                     "pid": 2693090
                 },
                 {
@@ -1963,8 +2047,8 @@
                         "1"
                     ],
                     "gpu_memory_usage": 7974,
-                    "cpu_percent": 99.2,
-                    "cpu_memory_usage": 23012958208,
+                    "cpu_percent": 99.3,
+                    "cpu_memory_usage": 23009955840,
                     "pid": 4061987
                 }
             ]
@@ -1973,12 +2057,12 @@
             "index": 2,
             "uuid": "GPU-04db15b9-993a-0897-e6f8-6c95ce2e398e",
             "name": "NVIDIA A100-SXM4-80GB",
-            "temperature.gpu": 40,
+            "temperature.gpu": 41,
             "fan.speed": null,
             "utilization.gpu": 100,
             "utilization.enc": 0,
             "utilization.dec": 0,
-            "power.draw": 87,
+            "power.draw": 77,
             "enforced.power.limit": 400,
             "memory.used": 18897,
             "memory.total": 81920,
@@ -2039,8 +2123,8 @@
                         "--use-gradient-checkpointing"
                     ],
                     "gpu_memory_usage": 18888,
-                    "cpu_percent": 99.6,
-                    "cpu_memory_usage": 2692218880,
+                    "cpu_percent": 99.7,
+                    "cpu_memory_usage": 2669248512,
                     "pid": 517184
                 }
             ]
@@ -2049,12 +2133,12 @@
             "index": 3,
             "uuid": "GPU-b7216805-c081-24cf-f980-639103905ad4",
             "name": "NVIDIA A100-SXM4-80GB",
-            "temperature.gpu": 64,
+            "temperature.gpu": 67,
             "fan.speed": null,
-            "utilization.gpu": 70,
+            "utilization.gpu": 100,
             "utilization.enc": 0,
             "utilization.dec": 0,
-            "power.draw": 230,
+            "power.draw": 260,
             "enforced.power.limit": 400,
             "memory.used": 31544,
             "memory.total": 81920,
@@ -2115,8 +2199,8 @@
                         "--use-gradient-checkpointing"
                     ],
                     "gpu_memory_usage": 18888,
-                    "cpu_percent": 99.3,
-                    "cpu_memory_usage": 2576224256,
+                    "cpu_percent": 99.4,
+                    "cpu_memory_usage": 2568941568,
                     "pid": 517185
                 },
                 {
@@ -2143,8 +2227,8 @@
                         "3"
                     ],
                     "gpu_memory_usage": 12640,
-                    "cpu_percent": 219.2,
-                    "cpu_memory_usage": 41989218304,
+                    "cpu_percent": 199.2,
+                    "cpu_memory_usage": 41869905920,
                     "pid": 535486
                 }
             ]
@@ -2153,12 +2237,12 @@
             "index": 4,
             "uuid": "GPU-e1166bce-23c4-3fad-b809-679b9b7922ec",
             "name": "NVIDIA A100-SXM4-80GB",
-            "temperature.gpu": 59,
+            "temperature.gpu": 57,
             "fan.speed": null,
             "utilization.gpu": 100,
             "utilization.enc": 0,
             "utilization.dec": 0,
-            "power.draw": 239,
+            "power.draw": 278,
             "enforced.power.limit": 400,
             "memory.used": 44335,
             "memory.total": 81920,
@@ -2192,8 +2276,8 @@
                         "CLIP_cat_zero"
                     ],
                     "gpu_memory_usage": 10306,
-                    "cpu_percent": 108.4,
-                    "cpu_memory_usage": 1075060736,
+                    "cpu_percent": 98.6,
+                    "cpu_memory_usage": 1075064832,
                     "pid": 1080074
                 },
                 {
@@ -2222,7 +2306,7 @@
                     ],
                     "gpu_memory_usage": 18686,
                     "cpu_percent": 98.9,
-                    "cpu_memory_usage": 11131056128,
+                    "cpu_memory_usage": 11131174912,
                     "pid": 868873
                 },
                 {
@@ -2249,8 +2333,8 @@
                         "4"
                     ],
                     "gpu_memory_usage": 7974,
-                    "cpu_percent": 109.1,
-                    "cpu_memory_usage": 21002985472,
+                    "cpu_percent": 188.4,
+                    "cpu_memory_usage": 21022973952,
                     "pid": 3892931
                 },
                 {
@@ -2277,8 +2361,8 @@
                         "4"
                     ],
                     "gpu_memory_usage": 7342,
-                    "cpu_percent": 139.3,
-                    "cpu_memory_usage": 13227192320,
+                    "cpu_percent": 99.5,
+                    "cpu_memory_usage": 13221687296,
                     "pid": 333235
                 }
             ]
@@ -2287,12 +2371,12 @@
             "index": 5,
             "uuid": "GPU-0a206b27-a734-9d3b-5e57-bd55a0af90fd",
             "name": "NVIDIA A100-SXM4-80GB",
-            "temperature.gpu": 57,
+            "temperature.gpu": 55,
             "fan.speed": null,
             "utilization.gpu": 100,
             "utilization.enc": 0,
             "utilization.dec": 0,
-            "power.draw": 243,
+            "power.draw": 229,
             "enforced.power.limit": 400,
             "memory.used": 62429,
             "memory.total": 81920,
@@ -2305,8 +2389,8 @@
                         "train_wm_joint.py"
                     ],
                     "gpu_memory_usage": 47900,
-                    "cpu_percent": 108.1,
-                    "cpu_memory_usage": 3368288256,
+                    "cpu_percent": 108.4,
+                    "cpu_memory_usage": 3368284160,
                     "pid": 802862
                 },
                 {
@@ -2333,8 +2417,8 @@
                         "5"
                     ],
                     "gpu_memory_usage": 7974,
-                    "cpu_percent": 108.4,
-                    "cpu_memory_usage": 21342883840,
+                    "cpu_percent": 98.8,
+                    "cpu_memory_usage": 21339557888,
                     "pid": 4070217
                 },
                 {
@@ -2359,8 +2443,8 @@
                         "5"
                     ],
                     "gpu_memory_usage": 4442,
-                    "cpu_percent": 148.3,
-                    "cpu_memory_usage": 29056548864,
+                    "cpu_percent": 148.7,
+                    "cpu_memory_usage": 28993376256,
                     "pid": 183561
                 },
                 {
@@ -2385,8 +2469,8 @@
                         "5"
                     ],
                     "gpu_memory_usage": 2084,
-                    "cpu_percent": 158.7,
-                    "cpu_memory_usage": 7351193600,
+                    "cpu_percent": 129.3,
+                    "cpu_memory_usage": 7351201792,
                     "pid": 574570
                 }
             ]
@@ -2395,12 +2479,12 @@
             "index": 6,
             "uuid": "GPU-d500c992-513e-cf18-436a-19de0f61132c",
             "name": "NVIDIA A100-SXM4-80GB",
-            "temperature.gpu": 59,
+            "temperature.gpu": 57,
             "fan.speed": null,
             "utilization.gpu": 100,
             "utilization.enc": 0,
             "utilization.dec": 0,
-            "power.draw": 234,
+            "power.draw": 244,
             "enforced.power.limit": 400,
             "memory.used": 55490,
             "memory.total": 81920,
@@ -2421,7 +2505,7 @@
                     ],
                     "gpu_memory_usage": 21474,
                     "cpu_percent": 0.0,
-                    "cpu_memory_usage": 2196430848,
+                    "cpu_memory_usage": 2197745664,
                     "pid": 620915
                 },
                 {
@@ -2449,8 +2533,8 @@
                         "CLIP_cat_lme"
                     ],
                     "gpu_memory_usage": 25100,
-                    "cpu_percent": 108.6,
-                    "cpu_memory_usage": 7526002688,
+                    "cpu_percent": 98.9,
+                    "cpu_memory_usage": 7526547456,
                     "pid": 2638542
                 },
                 {
@@ -2475,8 +2559,8 @@
                         "6"
                     ],
                     "gpu_memory_usage": 4444,
-                    "cpu_percent": 168.3,
-                    "cpu_memory_usage": 29055414272,
+                    "cpu_percent": 178.5,
+                    "cpu_memory_usage": 29021372416,
                     "pid": 16389
                 },
                 {
@@ -2501,8 +2585,8 @@
                         "6"
                     ],
                     "gpu_memory_usage": 4444,
-                    "cpu_percent": 168.8,
-                    "cpu_memory_usage": 28992282624,
+                    "cpu_percent": 198.9,
+                    "cpu_memory_usage": 29054730240,
                     "pid": 121222
                 }
             ]
@@ -2511,18 +2595,18 @@
 },
     "cluster43": {
     "hostname": "cluster43",
-    "query_time": "2026-10-24T11:45:12.132449",
+    "query_time": "2026-10-24T12:00:13.289521",
     "gpus": [
         {
             "index": 0,
             "uuid": "GPU-e75acfd2-7996-c112-41b8-26ff2ae7321c",
             "name": "NVIDIA A100-SXM4-80GB",
-            "temperature.gpu": 38,
+            "temperature.gpu": 40,
             "fan.speed": null,
-            "utilization.gpu": 44,
-            "power.draw": 78,
+            "utilization.gpu": 90,
+            "power.draw": 123,
             "enforced.power.limit": 400,
-            "memory.used": 14499,
+            "memory.used": 14379,
             "memory.total": 81920,
             "processes": [
                 {
@@ -2534,13 +2618,13 @@
                 {
                     "username": "shijingy23-srt",
                     "command": "N_Island_1",
-                    "gpu_memory_usage": 3572,
+                    "gpu_memory_usage": 3452,
                     "pid": 3571321
                 },
                 {
                     "username": "shijingy23-srt",
                     "command": "N_Island_1",
-                    "gpu_memory_usage": 3572,
+                    "gpu_memory_usage": 3452,
                     "pid": 3571321
                 }
             ]
@@ -2549,10 +2633,10 @@
             "index": 1,
             "uuid": "GPU-28f3110d-0632-682d-f3b5-c2281b026e42",
             "name": "NVIDIA A100-SXM4-80GB",
-            "temperature.gpu": 30,
+            "temperature.gpu": 26,
             "fan.speed": null,
             "utilization.gpu": 0,
-            "power.draw": 36,
+            "power.draw": 35,
             "enforced.power.limit": 400,
             "memory.used": 877,
             "memory.total": 81920,
@@ -2562,7 +2646,7 @@
             "index": 2,
             "uuid": "GPU-6a3a2483-868b-6221-453d-05d4e81cf173",
             "name": "NVIDIA A100-SXM4-80GB",
-            "temperature.gpu": 28,
+            "temperature.gpu": 26,
             "fan.speed": null,
             "utilization.gpu": 0,
             "power.draw": 30,
@@ -2575,10 +2659,10 @@
             "index": 3,
             "uuid": "GPU-aa132e2c-447d-956e-bb3e-9264bccbbdc1",
             "name": "NVIDIA A100-SXM4-80GB",
-            "temperature.gpu": 49,
+            "temperature.gpu": 47,
             "fan.speed": null,
-            "utilization.gpu": 90,
-            "power.draw": 163,
+            "utilization.gpu": 100,
+            "power.draw": 250,
             "enforced.power.limit": 400,
             "memory.used": 44088,
             "memory.total": 81920,
@@ -2595,10 +2679,10 @@
             "index": 4,
             "uuid": "GPU-3fde1bf5-9514-7461-9658-e563f9348787",
             "name": "NVIDIA A100-SXM4-80GB",
-            "temperature.gpu": 49,
+            "temperature.gpu": 46,
             "fan.speed": null,
-            "utilization.gpu": 89,
-            "power.draw": 131,
+            "utilization.gpu": 100,
+            "power.draw": 213,
             "enforced.power.limit": 400,
             "memory.used": 44108,
             "memory.total": 81920,
@@ -2615,18 +2699,18 @@
 },
     "cluster44": {
     "hostname": "cluster44",
-    "query_time": "2026-10-24T11:45:13.266936",
+    "query_time": "2026-10-24T12:00:14.402388",
     "gpus": [
         {
             "index": 0,
             "uuid": "GPU-1d7c2c9c-0e2b-1674-a27b-2407ebf2bd3e",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 29,
+            "temperature.gpu": 57,
             "fan.speed": null,
-            "utilization.gpu": 0,
-            "power.draw": 39,
+            "utilization.gpu": 79,
+            "power.draw": 189,
             "enforced.power.limit": 400,
-            "memory.used": 16338,
+            "memory.used": 18106,
             "memory.total": 40960,
             "processes": [
                 {
@@ -2634,6 +2718,12 @@
                     "command": "python",
                     "gpu_memory_usage": 15244,
                     "pid": 2096395
+                },
+                {
+                    "username": "wanth21",
+                    "command": "python",
+                    "gpu_memory_usage": 1762,
+                    "pid": 4081315
                 },
                 {
                     "username": "myy",
@@ -2650,15 +2740,15 @@
             "temperature.gpu": 44,
             "fan.speed": null,
             "utilization.gpu": 99,
-            "power.draw": 115,
+            "power.draw": 107,
             "enforced.power.limit": 400,
-            "memory.used": 33900,
+            "memory.used": 33904,
             "memory.total": 40960,
             "processes": [
                 {
                     "username": "myy",
                     "command": "python",
-                    "gpu_memory_usage": 9318,
+                    "gpu_memory_usage": 9322,
                     "pid": 3996377
                 },
                 {
@@ -2691,30 +2781,30 @@
             "index": 2,
             "uuid": "GPU-3589237a-9943-1f51-efaa-c6cb038530d0",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 44,
+            "temperature.gpu": 39,
             "fan.speed": null,
             "utilization.gpu": 99,
-            "power.draw": 143,
+            "power.draw": 114,
             "enforced.power.limit": 400,
-            "memory.used": 26419,
+            "memory.used": 26441,
             "memory.total": 40960,
             "processes": [
                 {
                     "username": "myy",
                     "command": "python",
-                    "gpu_memory_usage": 8594,
+                    "gpu_memory_usage": 8602,
                     "pid": 4075660
                 },
                 {
                     "username": "myy",
                     "command": "python",
-                    "gpu_memory_usage": 8590,
+                    "gpu_memory_usage": 8598,
                     "pid": 4075912
                 },
                 {
                     "username": "myy",
                     "command": "python",
-                    "gpu_memory_usage": 8590,
+                    "gpu_memory_usage": 8596,
                     "pid": 4076643
                 }
             ]
@@ -2723,10 +2813,10 @@
             "index": 3,
             "uuid": "GPU-1a01165f-b113-7194-5dfa-b3cd243f6cfb",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 57,
+            "temperature.gpu": 53,
             "fan.speed": null,
             "utilization.gpu": 100,
-            "power.draw": 0,
+            "power.draw": 188,
             "enforced.power.limit": 400,
             "memory.used": 38698,
             "memory.total": 40960,
@@ -2743,10 +2833,10 @@
             "index": 4,
             "uuid": "GPU-3dc65cae-8d8c-6cbf-edca-ec1b573e81ff",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 55,
+            "temperature.gpu": 50,
             "fan.speed": null,
             "utilization.gpu": 100,
-            "power.draw": 203,
+            "power.draw": 199,
             "enforced.power.limit": 400,
             "memory.used": 39925,
             "memory.total": 40960,
@@ -2763,10 +2853,10 @@
             "index": 5,
             "uuid": "GPU-86e04371-080a-f57e-3e0b-ce2d08efa0ee",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 36,
+            "temperature.gpu": 34,
             "fan.speed": null,
             "utilization.gpu": 99,
-            "power.draw": 65,
+            "power.draw": 71,
             "enforced.power.limit": 400,
             "memory.used": 8065,
             "memory.total": 40960,
@@ -2801,36 +2891,36 @@
             "index": 6,
             "uuid": "GPU-5c32220f-9429-4f0c-a3ca-2dce9cf6c65d",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 55,
+            "temperature.gpu": 49,
             "fan.speed": null,
-            "utilization.gpu": 100,
-            "power.draw": 256,
+            "utilization.gpu": 34,
+            "power.draw": 53,
             "enforced.power.limit": 400,
-            "memory.used": 15282,
+            "memory.used": 25159,
             "memory.total": 40960,
             "processes": [
                 {
                     "username": "qcy22",
                     "command": "python",
-                    "gpu_memory_usage": 12962,
+                    "gpu_memory_usage": 23060,
                     "pid": 4019792
                 },
                 {
                     "username": "myy",
                     "command": "python",
-                    "gpu_memory_usage": 458,
+                    "gpu_memory_usage": 683,
                     "pid": 4075660
                 },
                 {
                     "username": "myy",
                     "command": "python",
-                    "gpu_memory_usage": 681,
+                    "gpu_memory_usage": 418,
                     "pid": 4075912
                 },
                 {
                     "username": "myy",
                     "command": "python",
-                    "gpu_memory_usage": 527,
+                    "gpu_memory_usage": 344,
                     "pid": 4076643
                 }
             ]
@@ -2839,49 +2929,49 @@
 },
     "cluster45": {
     "hostname": "cluster45",
-    "query_time": "2026-10-24T19:45:14.379799",
+    "query_time": "2026-10-24T20:00:15.299901",
     "gpus": [
         {
             "index": 0,
             "uuid": "GPU-c01c1d12-71f1-856f-0471-31dbd8d19e54",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 44,
+            "temperature.gpu": 42,
             "fan.speed": null,
             "utilization.gpu": 99,
-            "power.draw": 145,
+            "power.draw": 121,
             "enforced.power.limit": 400,
-            "memory.used": 23594,
+            "memory.used": 29862,
             "memory.total": 40960,
             "processes": [
                 {
                     "username": "myy",
                     "command": "python",
-                    "gpu_memory_usage": 8610,
+                    "gpu_memory_usage": 8618,
                     "pid": 963537
                 },
                 {
                     "username": "myy",
                     "command": "python",
-                    "gpu_memory_usage": 8610,
+                    "gpu_memory_usage": 8618,
                     "pid": 971990
                 },
                 {
-                    "username": "jzq26",
-                    "command": "N_Island_0",
-                    "gpu_memory_usage": 3761,
-                    "pid": 1027654
-                },
-                {
-                    "username": "mwq24-srt",
+                    "username": "myy",
                     "command": "python",
-                    "gpu_memory_usage": 1882,
-                    "pid": 1027353
+                    "gpu_memory_usage": 8592,
+                    "pid": 1028746
                 },
                 {
                     "username": "jzq26",
                     "command": "N_Island_0",
-                    "gpu_memory_usage": 3761,
-                    "pid": 1027654
+                    "gpu_memory_usage": 3304,
+                    "pid": 1045759
+                },
+                {
+                    "username": "jzq26",
+                    "command": "N_Island_0",
+                    "gpu_memory_usage": 3304,
+                    "pid": 1045759
                 }
             ]
         },
@@ -2889,10 +2979,10 @@
             "index": 1,
             "uuid": "GPU-1ad935d5-64fa-d02d-a80d-90b59a58421a",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 38,
+            "temperature.gpu": 36,
             "fan.speed": null,
-            "utilization.gpu": 61,
-            "power.draw": 89,
+            "utilization.gpu": 66,
+            "power.draw": 110,
             "enforced.power.limit": 400,
             "memory.used": 39030,
             "memory.total": 40960,
@@ -2927,12 +3017,12 @@
             "index": 2,
             "uuid": "GPU-9315030f-aadd-db04-2f57-74546347dede",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 29,
+            "temperature.gpu": 26,
             "fan.speed": null,
             "utilization.gpu": 0,
             "power.draw": 0,
             "enforced.power.limit": 400,
-            "memory.used": 34391,
+            "memory.used": 35263,
             "memory.total": 40960,
             "processes": [
                 {
@@ -2956,20 +3046,26 @@
                 {
                     "username": "myy",
                     "command": "python",
-                    "gpu_memory_usage": 458,
+                    "gpu_memory_usage": 683,
                     "pid": 963537
                 },
                 {
                     "username": "myy",
                     "command": "python",
-                    "gpu_memory_usage": 458,
+                    "gpu_memory_usage": 683,
                     "pid": 971990
+                },
+                {
+                    "username": "myy",
+                    "command": "python",
+                    "gpu_memory_usage": 418,
+                    "pid": 1028746
                 },
                 {
                     "username": "jzq26",
                     "command": "N_Island_0",
                     "gpu_memory_usage": 6,
-                    "pid": 1027654
+                    "pid": 1045759
                 }
             ]
         },
@@ -2977,10 +3073,10 @@
             "index": 3,
             "uuid": "GPU-bee4df84-a5fc-bd8b-9c6f-ddef0f6c40f4",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 64,
+            "temperature.gpu": 62,
             "fan.speed": null,
             "utilization.gpu": 100,
-            "power.draw": 252,
+            "power.draw": 253,
             "enforced.power.limit": 400,
             "memory.used": 17554,
             "memory.total": 40960,
@@ -3009,10 +3105,10 @@
             "index": 4,
             "uuid": "GPU-bd41991a-4b5b-e97b-e6a5-c2f43d1fb859",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 62,
+            "temperature.gpu": 57,
             "fan.speed": null,
             "utilization.gpu": 100,
-            "power.draw": 234,
+            "power.draw": 247,
             "enforced.power.limit": 400,
             "memory.used": 22655,
             "memory.total": 40960,
@@ -3047,10 +3143,10 @@
             "index": 5,
             "uuid": "GPU-af9aa1d1-a96d-dc23-d910-01ab5217cb95",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 57,
+            "temperature.gpu": 48,
             "fan.speed": null,
-            "utilization.gpu": 69,
-            "power.draw": 244,
+            "utilization.gpu": 73,
+            "power.draw": 54,
             "enforced.power.limit": 400,
             "memory.used": 30336,
             "memory.total": 40960,
@@ -3079,10 +3175,10 @@
             "index": 6,
             "uuid": "GPU-6257d0d6-4f92-b65a-bbff-8b0b2143dd48",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 28,
+            "temperature.gpu": 25,
             "fan.speed": null,
             "utilization.gpu": 0,
-            "power.draw": 32,
+            "power.draw": 31,
             "enforced.power.limit": 400,
             "memory.used": 39634,
             "memory.total": 40960,
@@ -3099,12 +3195,12 @@
 },
     "cluster46": {
     "hostname": "cluster46",
-    "query_time": "2026-10-24T11:45:16.954811",
+    "query_time": "2026-10-24T12:00:17.872867",
     "gpus": [
         {
             "index": 0,
             "name": "Ascend-910B3",
-            "temperature.gpu": 34.0,
+            "temperature.gpu": 31.0,
             "bus_id": "0000:C1:00.0",
             "utilization.gpu": 0.0,
             "memory.used": 3428,
@@ -3113,7 +3209,7 @@
         {
             "index": 1,
             "name": "Ascend-910B3",
-            "temperature.gpu": 32.0,
+            "temperature.gpu": 29.0,
             "bus_id": "0000:C2:00.0",
             "utilization.gpu": 0.0,
             "memory.used": 3427,
@@ -3122,7 +3218,7 @@
         {
             "index": 2,
             "name": "Ascend-910B3",
-            "temperature.gpu": 33.0,
+            "temperature.gpu": 27.0,
             "bus_id": "0000:81:00.0",
             "utilization.gpu": 0.0,
             "memory.used": 3427,
@@ -3131,16 +3227,16 @@
         {
             "index": 3,
             "name": "Ascend-910B3",
-            "temperature.gpu": 36.0,
+            "temperature.gpu": 29.0,
             "bus_id": "0000:82:00.0",
             "utilization.gpu": 0.0,
-            "memory.used": 3426,
+            "memory.used": 3427,
             "memory.total": 65536
         },
         {
             "index": 4,
             "name": "Ascend-910B3",
-            "temperature.gpu": 40.0,
+            "temperature.gpu": 36.0,
             "bus_id": "0000:01:00.0",
             "utilization.gpu": 0.0,
             "memory.used": 3429,
@@ -3149,16 +3245,16 @@
         {
             "index": 5,
             "name": "Ascend-910B3",
-            "temperature.gpu": 38.0,
+            "temperature.gpu": 33.0,
             "bus_id": "0000:02:00.0",
             "utilization.gpu": 0.0,
-            "memory.used": 3426,
+            "memory.used": 3427,
             "memory.total": 65536
         },
         {
             "index": 6,
             "name": "Ascend-910B3",
-            "temperature.gpu": 38.0,
+            "temperature.gpu": 32.0,
             "bus_id": "0000:41:00.0",
             "utilization.gpu": 0.0,
             "memory.used": 3428,
@@ -3167,7 +3263,7 @@
         {
             "index": 7,
             "name": "Ascend-910B3",
-            "temperature.gpu": 40.0,
+            "temperature.gpu": 34.0,
             "bus_id": "0000:42:00.0",
             "utilization.gpu": 0.0,
             "memory.used": 3427,
@@ -3177,12 +3273,12 @@
 },
     "cluster47": {
     "hostname": "cluster47",
-    "query_time": "2026-10-24T11:45:19.213721",
+    "query_time": "2026-10-24T12:00:20.178380",
     "gpus": [
         {
             "index": 0,
             "name": "Ascend-910B3",
-            "temperature.gpu": 32.0,
+            "temperature.gpu": 37.0,
             "bus_id": "0000:C1:00.0",
             "utilization.gpu": 0.0,
             "memory.used": 3575,
@@ -3191,7 +3287,7 @@
         {
             "index": 1,
             "name": "Ascend-910B3",
-            "temperature.gpu": 32.0,
+            "temperature.gpu": 37.0,
             "bus_id": "0000:C2:00.0",
             "utilization.gpu": 0.0,
             "memory.used": 3567,
@@ -3200,7 +3296,7 @@
         {
             "index": 2,
             "name": "Ascend-910B3",
-            "temperature.gpu": 32.0,
+            "temperature.gpu": 37.0,
             "bus_id": "0000:81:00.0",
             "utilization.gpu": 0.0,
             "memory.used": 3567,
@@ -3209,16 +3305,16 @@
         {
             "index": 3,
             "name": "Ascend-910B3",
-            "temperature.gpu": 33.0,
+            "temperature.gpu": 39.0,
             "bus_id": "0000:82:00.0",
             "utilization.gpu": 0.0,
-            "memory.used": 3566,
+            "memory.used": 3567,
             "memory.total": 65536
         },
         {
             "index": 4,
             "name": "Ascend-910B3",
-            "temperature.gpu": 38.0,
+            "temperature.gpu": 41.0,
             "bus_id": "0000:01:00.0",
             "utilization.gpu": 0.0,
             "memory.used": 3566,
@@ -3227,7 +3323,7 @@
         {
             "index": 5,
             "name": "Ascend-910B3",
-            "temperature.gpu": 38.0,
+            "temperature.gpu": 42.0,
             "bus_id": "0000:02:00.0",
             "utilization.gpu": 0.0,
             "memory.used": 3567,
@@ -3236,7 +3332,7 @@
         {
             "index": 6,
             "name": "Ascend-910B3",
-            "temperature.gpu": 37.0,
+            "temperature.gpu": 41.0,
             "bus_id": "0000:41:00.0",
             "utilization.gpu": 0.0,
             "memory.used": 3565,
@@ -3245,22 +3341,22 @@
         {
             "index": 7,
             "name": "Ascend-910B3",
-            "temperature.gpu": 37.0,
+            "temperature.gpu": 40.0,
             "bus_id": "0000:42:00.0",
             "utilization.gpu": 0.0,
-            "memory.used": 3563,
+            "memory.used": 3562,
             "memory.total": 65536
         }
     ]
 },
     "cluster48": {
     "hostname": "cluster48",
-    "query_time": "2026-10-24T11:45:21.699946",
+    "query_time": "2026-10-24T12:00:22.675731",
     "gpus": [
         {
             "index": 0,
             "name": "Ascend-910B3",
-            "temperature.gpu": 30.0,
+            "temperature.gpu": 33.0,
             "bus_id": "0000:C1:00.0",
             "utilization.gpu": 0.0,
             "memory.used": 3436,
@@ -3269,7 +3365,7 @@
         {
             "index": 1,
             "name": "Ascend-910B3",
-            "temperature.gpu": 32.0,
+            "temperature.gpu": 35.0,
             "bus_id": "0000:C2:00.0",
             "utilization.gpu": 0.0,
             "memory.used": 3429,
@@ -3278,7 +3374,7 @@
         {
             "index": 2,
             "name": "Ascend-910B3",
-            "temperature.gpu": 32.0,
+            "temperature.gpu": 35.0,
             "bus_id": "0000:81:00.0",
             "utilization.gpu": 0.0,
             "memory.used": 3429,
@@ -3287,7 +3383,7 @@
         {
             "index": 3,
             "name": "Ascend-910B3",
-            "temperature.gpu": 33.0,
+            "temperature.gpu": 36.0,
             "bus_id": "0000:82:00.0",
             "utilization.gpu": 0.0,
             "memory.used": 3427,
@@ -3296,16 +3392,16 @@
         {
             "index": 4,
             "name": "Ascend-910B3",
-            "temperature.gpu": 36.0,
+            "temperature.gpu": 39.0,
             "bus_id": "0000:01:00.0",
             "utilization.gpu": 0.0,
-            "memory.used": 3427,
+            "memory.used": 3428,
             "memory.total": 65536
         },
         {
             "index": 5,
             "name": "Ascend-910B3",
-            "temperature.gpu": 36.0,
+            "temperature.gpu": 39.0,
             "bus_id": "0000:02:00.0",
             "utilization.gpu": 0.0,
             "memory.used": 3429,
@@ -3314,19 +3410,19 @@
         {
             "index": 6,
             "name": "Ascend-910B3",
-            "temperature.gpu": 35.0,
+            "temperature.gpu": 38.0,
             "bus_id": "0000:41:00.0",
             "utilization.gpu": 0.0,
-            "memory.used": 3429,
+            "memory.used": 3428,
             "memory.total": 65536
         },
         {
             "index": 7,
             "name": "Ascend-910B3",
-            "temperature.gpu": 37.0,
+            "temperature.gpu": 40.0,
             "bus_id": "0000:42:00.0",
             "utilization.gpu": 0.0,
-            "memory.used": 3428,
+            "memory.used": 3427,
             "memory.total": 65536
         }
     ]
@@ -3334,7 +3430,7 @@
     "cluster49": {
     "hostname": "cluster49",
     "driver_version": "535.288.01",
-    "query_time": "2026-10-24T19:45:23.280220",
+    "query_time": "2026-10-24T20:00:24.214312",
     "gpus": [
         {
             "index": 0,
@@ -3345,7 +3441,7 @@
             "utilization.gpu": 100,
             "utilization.enc": 0,
             "utilization.dec": 0,
-            "power.draw": 179,
+            "power.draw": 198,
             "enforced.power.limit": 400,
             "memory.used": 38054,
             "memory.total": 40960,
@@ -3376,7 +3472,7 @@
                     ],
                     "gpu_memory_usage": 38010,
                     "cpu_percent": 99.3,
-                    "cpu_memory_usage": 16555843584,
+                    "cpu_memory_usage": 16510091264,
                     "pid": 3448194
                 },
                 {
@@ -3412,10 +3508,10 @@
             "name": "NVIDIA A100-SXM4-40GB",
             "temperature.gpu": 84,
             "fan.speed": null,
-            "utilization.gpu": 100,
+            "utilization.gpu": 98,
             "utilization.enc": 0,
             "utilization.dec": 0,
-            "power.draw": 202,
+            "power.draw": 179,
             "enforced.power.limit": 400,
             "memory.used": 22826,
             "memory.total": 40960,
@@ -3475,8 +3571,8 @@
                         "--use-gradient-checkpointing"
                     ],
                     "gpu_memory_usage": 22808,
-                    "cpu_percent": 99.6,
-                    "cpu_memory_usage": 2705248256,
+                    "cpu_percent": 99.5,
+                    "cpu_memory_usage": 2294853632,
                     "pid": 3691607
                 },
                 {
@@ -3510,12 +3606,12 @@
             "index": 2,
             "uuid": "GPU-eabc0e91-d0db-18b0-59f2-d591f336cc08",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 81,
+            "temperature.gpu": 82,
             "fan.speed": null,
-            "utilization.gpu": 100,
+            "utilization.gpu": 99,
             "utilization.enc": 0,
             "utilization.dec": 0,
-            "power.draw": 105,
+            "power.draw": 108,
             "enforced.power.limit": 400,
             "memory.used": 38034,
             "memory.total": 40960,
@@ -3546,7 +3642,7 @@
                     ],
                     "gpu_memory_usage": 37990,
                     "cpu_percent": 99.5,
-                    "cpu_memory_usage": 16446660608,
+                    "cpu_memory_usage": 16388317184,
                     "pid": 3448195
                 },
                 {
@@ -3580,12 +3676,12 @@
             "index": 3,
             "uuid": "GPU-7b0f8db8-a64f-b3f0-5e1b-b367746e98e1",
             "name": "NVIDIA A100-SXM4-40GB",
-            "temperature.gpu": 74,
+            "temperature.gpu": 71,
             "fan.speed": null,
             "utilization.gpu": 100,
             "utilization.enc": 0,
             "utilization.dec": 0,
-            "power.draw": 224,
+            "power.draw": 90,
             "enforced.power.limit": 400,
             "memory.used": 22826,
             "memory.total": 39936,
@@ -3645,8 +3741,8 @@
                         "--use-gradient-checkpointing"
                     ],
                     "gpu_memory_usage": 22808,
-                    "cpu_percent": 99.1,
-                    "cpu_memory_usage": 2296680448,
+                    "cpu_percent": 99.0,
+                    "cpu_memory_usage": 2284113920,
                     "pid": 3691608
                 },
                 {
@@ -3680,12 +3776,12 @@
             "index": 4,
             "uuid": "GPU-b7b0960b-6600-86f5-0f2a-54f52da231e5",
             "name": "NVIDIA A100-PCIE-40GB",
-            "temperature.gpu": 62,
+            "temperature.gpu": 58,
             "fan.speed": null,
             "utilization.gpu": 100,
             "utilization.enc": 0,
             "utilization.dec": 0,
-            "power.draw": 279,
+            "power.draw": 78,
             "enforced.power.limit": 250,
             "memory.used": 22826,
             "memory.total": 40960,
@@ -3745,8 +3841,8 @@
                         "--use-gradient-checkpointing"
                     ],
                     "gpu_memory_usage": 22808,
-                    "cpu_percent": 109.0,
-                    "cpu_memory_usage": 2296885248,
+                    "cpu_percent": 99.0,
+                    "cpu_memory_usage": 2284306432,
                     "pid": 3691609
                 },
                 {
@@ -3780,12 +3876,12 @@
             "index": 5,
             "uuid": "GPU-9528e57b-2d62-2ba8-d88d-03fd895d4bf0",
             "name": "NVIDIA A100-PCIE-40GB",
-            "temperature.gpu": 63,
+            "temperature.gpu": 58,
             "fan.speed": null,
             "utilization.gpu": 100,
             "utilization.enc": 0,
             "utilization.dec": 0,
-            "power.draw": 253,
+            "power.draw": 80,
             "enforced.power.limit": 250,
             "memory.used": 22826,
             "memory.total": 40960,
@@ -3845,8 +3941,8 @@
                         "--use-gradient-checkpointing"
                     ],
                     "gpu_memory_usage": 22808,
-                    "cpu_percent": 99.4,
-                    "cpu_memory_usage": 2277294080,
+                    "cpu_percent": 99.0,
+                    "cpu_memory_usage": 2264715264,
                     "pid": 3691610
                 },
                 {
@@ -3880,12 +3976,106 @@
             "index": 6,
             "uuid": "GPU-f5bf7960-9ce3-4e10-975b-f3f5a4c7e0a1",
             "name": "NVIDIA A100-PCIE-40GB",
+            "temperature.gpu": 71,
+            "fan.speed": null,
+            "utilization.gpu": 100,
+            "utilization.enc": 0,
+            "utilization.dec": 0,
+            "power.draw": 234,
+            "enforced.power.limit": 250,
+            "memory.used": 22842,
+            "memory.total": 40960,
+            "processes": [
+                {
+                    "username": "qcy22",
+                    "command": "python",
+                    "full_command": [
+                        "/home/qcy22/venvs/diffsynth-studio/bin/python",
+                        "-u",
+                        "/DATA/DATANAS2/qcy22/code/gen/DiffSynth-Studio-wan22-shared/examples/wanvideo/model_training/train_cached_latents.py",
+                        "--cache-root",
+                        "/DATA/DATANAS1/qcy22/cache/wan22_ti2v5b_vae_prompt_cache_40000_81f_480x832_bf16_parallel_20261022",
+                        "--model-path",
+                        "[\"/home/qcy22/models_modelscope/Wan-AI/Wan2.2-TI2V-5B/diffusion_pytorch_model-00001-of-00003.safetensors\",\"/home/qcy22/models_modelscope/Wan-AI/Wan2.2-TI2V-5B/diffusion_pytorch_model-00002-of-00003.safetensors\",\"/home/qcy22/models_modelscope/Wan-AI/Wan2.2-TI2V-5B/diffusion_pytorch_model-00003-of-00003.safetensors\"]",
+                        "--tokenizer-path",
+                        "/home/qcy22/models_modelscope/Wan-AI/Wan2.2-TI2V-5B/google/umt5-xxl",
+                        "--output-path",
+                        "/home/qcy22/outputs/wan22_ti2v5b_blockdual_cached_lora128_a64_b4_acc4_cluster49_g67_20261023",
+                        "--wandb-project",
+                        "Wan22-TI2V-5B-SharedFlow",
+                        "--wandb-run-name",
+                        "wan22-ti2v5b-blockdual-cached-lora128-a64-b4-acc4-cluster49-gpu67-20261023",
+                        "--shift",
+                        "5",
+                        "--lora-rank",
+                        "128",
+                        "--lora-alpha",
+                        "64",
+                        "--lora-target-modules",
+                        "q,k,v,o,ffn.0,ffn.2",
+                        "--wan-flow-algorithm",
+                        "block_dual",
+                        "--wan-tfm-compile",
+                        "--dataset-repeat",
+                        "4",
+                        "--batch-size-per-device",
+                        "4",
+                        "--gradient-accumulation-steps",
+                        "4",
+                        "--num-epochs",
+                        "1",
+                        "--learning-rate",
+                        "1e-4",
+                        "--weight-decay",
+                        "0.01",
+                        "--save-steps",
+                        "100",
+                        "--dataset-num-workers",
+                        "2",
+                        "--use-gradient-checkpointing"
+                    ],
+                    "gpu_memory_usage": 22824,
+                    "cpu_percent": 109.0,
+                    "cpu_memory_usage": 2376192000,
+                    "pid": 2842935
+                },
+                {
+                    "username": "gdm",
+                    "command": "Xorg",
+                    "full_command": [
+                        "/usr/lib/xorg/Xorg",
+                        "vt1",
+                        "-displayfd",
+                        "3",
+                        "-auth",
+                        "/run/user/120/gdm/Xauthority",
+                        "-nolisten",
+                        "tcp",
+                        "-background",
+                        "none",
+                        "-noreset",
+                        "-keeptty",
+                        "-novtswitch",
+                        "-verbose",
+                        "3"
+                    ],
+                    "gpu_memory_usage": 4,
+                    "cpu_percent": 0.0,
+                    "cpu_memory_usage": 230400000,
+                    "pid": 4109
+                }
+            ]
+        },
+        {
+            "index": 7,
+            "uuid": "GPU-3d606978-6d00-06db-47fc-f7c41a46625d",
+            "name": "NVIDIA A100-PCIE-40GB",
             "temperature.gpu": 66,
             "fan.speed": null,
             "utilization.gpu": 100,
             "utilization.enc": 0,
             "utilization.dec": 0,
-            "power.draw": 252,
+            "power.draw": 259,
             "enforced.power.limit": 250,
             "memory.used": 22842,
             "memory.total": 40960,
@@ -3940,100 +4130,6 @@
                     ],
                     "gpu_memory_usage": 22824,
                     "cpu_percent": 99.1,
-                    "cpu_memory_usage": 2376208384,
-                    "pid": 2842935
-                },
-                {
-                    "username": "gdm",
-                    "command": "Xorg",
-                    "full_command": [
-                        "/usr/lib/xorg/Xorg",
-                        "vt1",
-                        "-displayfd",
-                        "3",
-                        "-auth",
-                        "/run/user/120/gdm/Xauthority",
-                        "-nolisten",
-                        "tcp",
-                        "-background",
-                        "none",
-                        "-noreset",
-                        "-keeptty",
-                        "-novtswitch",
-                        "-verbose",
-                        "3"
-                    ],
-                    "gpu_memory_usage": 4,
-                    "cpu_percent": 0.0,
-                    "cpu_memory_usage": 230400000,
-                    "pid": 4109
-                }
-            ]
-        },
-        {
-            "index": 7,
-            "uuid": "GPU-3d606978-6d00-06db-47fc-f7c41a46625d",
-            "name": "NVIDIA A100-PCIE-40GB",
-            "temperature.gpu": 61,
-            "fan.speed": null,
-            "utilization.gpu": 100,
-            "utilization.enc": 0,
-            "utilization.dec": 0,
-            "power.draw": 241,
-            "enforced.power.limit": 250,
-            "memory.used": 22842,
-            "memory.total": 40960,
-            "processes": [
-                {
-                    "username": "qcy22",
-                    "command": "python",
-                    "full_command": [
-                        "/home/qcy22/venvs/diffsynth-studio/bin/python",
-                        "-u",
-                        "/DATA/DATANAS2/qcy22/code/gen/DiffSynth-Studio-wan22-shared/examples/wanvideo/model_training/train_cached_latents.py",
-                        "--cache-root",
-                        "/DATA/DATANAS1/qcy22/cache/wan22_ti2v5b_vae_prompt_cache_40000_81f_480x832_bf16_parallel_20261022",
-                        "--model-path",
-                        "[\"/home/qcy22/models_modelscope/Wan-AI/Wan2.2-TI2V-5B/diffusion_pytorch_model-00001-of-00003.safetensors\",\"/home/qcy22/models_modelscope/Wan-AI/Wan2.2-TI2V-5B/diffusion_pytorch_model-00002-of-00003.safetensors\",\"/home/qcy22/models_modelscope/Wan-AI/Wan2.2-TI2V-5B/diffusion_pytorch_model-00003-of-00003.safetensors\"]",
-                        "--tokenizer-path",
-                        "/home/qcy22/models_modelscope/Wan-AI/Wan2.2-TI2V-5B/google/umt5-xxl",
-                        "--output-path",
-                        "/home/qcy22/outputs/wan22_ti2v5b_blockdual_cached_lora128_a64_b4_acc4_cluster49_g67_20261023",
-                        "--wandb-project",
-                        "Wan22-TI2V-5B-SharedFlow",
-                        "--wandb-run-name",
-                        "wan22-ti2v5b-blockdual-cached-lora128-a64-b4-acc4-cluster49-gpu67-20261023",
-                        "--shift",
-                        "5",
-                        "--lora-rank",
-                        "128",
-                        "--lora-alpha",
-                        "64",
-                        "--lora-target-modules",
-                        "q,k,v,o,ffn.0,ffn.2",
-                        "--wan-flow-algorithm",
-                        "block_dual",
-                        "--wan-tfm-compile",
-                        "--dataset-repeat",
-                        "4",
-                        "--batch-size-per-device",
-                        "4",
-                        "--gradient-accumulation-steps",
-                        "4",
-                        "--num-epochs",
-                        "1",
-                        "--learning-rate",
-                        "1e-4",
-                        "--weight-decay",
-                        "0.01",
-                        "--save-steps",
-                        "100",
-                        "--dataset-num-workers",
-                        "2",
-                        "--use-gradient-checkpointing"
-                    ],
-                    "gpu_memory_usage": 22824,
-                    "cpu_percent": 99.4,
                     "cpu_memory_usage": 2343038976,
                     "pid": 2842936
                 },
