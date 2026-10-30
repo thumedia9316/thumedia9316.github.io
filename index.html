@@ -4,182 +4,257 @@
 <meta charset="UTF-8">
 <title>GPU Monitor</title>
 <style>
-  body {
-    font-family: 'Arial', sans-serif;
-    background: #f0f2f5;
-    color: #333;
-    padding: 20px;
-  }
+  body { font-family: 'Arial', sans-serif; background: #f0f2f5; color: #333; padding: 20px; }
+  h1 { text-align: center; margin-bottom: 20px; }
+  .timestamp { text-align: center; margin-bottom: 30px; color: #555; }
+  .clusters { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+  .cluster { background: #fff; padding: 15px; border-radius: 10px; box-shadow: 0 3px 8px rgba(0,0,0,0.1); width: 300px; }
+  .cluster h2 { margin-top: 0; font-size: 1.2em; text-align: center; }
+  .gpu { background: #f8f9fa; padding: 8px; margin-bottom: 10px; border-radius: 8px; }
+  .gpu .label { font-size: 14px; margin-bottom: 4px; display: flex; justify-content: space-between; }
+  .bar-container { background: #e0e0e0; height: 12px; border-radius: 6px; overflow: hidden; }
+  .bar { height: 100%; border-radius: 6px; transition: width 0.3s; }
+  .bar.util-low { background: #22c55e; }
+  .bar.util-medium { background: #f59e0b; }
+  .bar.util-high { background: #ef4444; }
+  .gpu .mem { font-size: 12px; color: #666; margin-top: 3px; }
 
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-
-  .timestamp {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #555;
-  }
-
-  .clusters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-  }
-
-  .cluster {
-    background: #fff;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-    width: 300px;
-  }
-
-  .cluster h2 {
-    margin-top: 0;
-    font-size: 1.2em;
-    text-align: center;
-  }
-
-  .gpu {
-    background: #f8f9fa;
-    padding: 8px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-  }
-
-  .gpu .label {
-    font-size: 14px;
-    margin-bottom: 4px;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .bar-container {
-    background: #e0e0e0;
-    height: 12px;
-    border-radius: 6px;
-    overflow: hidden;
-  }
-
-  .bar {
-    height: 100%;
-    border-radius: 6px;
-    transition: width 0.3s;
-  }
-
-  .bar.util-low { background: #22c55e; }    /* green */
-  .bar.util-medium { background: #f59e0b; } /* yellow */
-  .bar.util-high { background: #ef4444; }   /* red */
-
-  .gpu .mem {
-    font-size: 12px;
-    color: #666;
-    margin-top: 3px;
-  }
+  /* Added: summary and low-utilization panel */
+  .summary { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin: 0 auto 24px; }
+  .summary-item { background: white; padding: 14px 20px; min-width: 140px; text-align: center; border-radius: 10px; box-shadow: 0 3px 8px rgba(0,0,0,0.1); }
+  .summary-number { font-size: 26px; font-weight: bold; }
+  .summary-label { color: #666; font-size: 13px; margin-top: 5px; }
+  .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 16px; }
+  .tab { padding: 10px 16px; background: white; border: 1px solid #cbd5e1; border-radius: 7px; cursor: pointer; }
+  .tab.active { color: white; background: #2563eb; border-color: #2563eb; }
+  .hidden { display: none; }
+  .low-note { text-align: center; color: #666; font-size: 13px; margin-bottom: 20px; }
+  .low-card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 3px 8px rgba(0,0,0,0.1); width: 390px; max-width: calc(100% - 30px); }
+  .low-card h2 { font-size: 1.1em; margin: 0 0 10px; }
+  .low-card p { margin: 5px 0; font-size: 13px; }
+  .process-table { border-collapse: collapse; width: 100%; margin-top: 12px; font-size: 12px; }
+  .process-table th, .process-table td { text-align: left; padding: 6px 4px; border-bottom: 1px solid #e5e7eb; overflow-wrap: anywhere; }
+  .process-table-wrap { overflow-x: auto; }
+  .empty { text-align: center; width: 100%; color: #666; }
 </style>
 </head>
 <body>
-
 <h1>🖥️ GPU Dashboard</h1>
 <div class="timestamp" id="timestamp">Loading...</div>
 
+<!-- Added: summary panel -->
+<div class="summary" id="summary"></div>
+<!-- Added: panel selector -->
+<div class="tabs">
+  <button type="button" class="tab active" id="all-tab">All GPUs</button>
+  <button type="button" class="tab" id="low-tab">Low-utilization GPUs (<span id="low-count">0</span>)</button>
+</div>
+<div class="low-note" id="low-note" style="display:none">Memory ≥ 50% and utilization ≤ 10% in the latest snapshot. Low instantaneous utilization does not necessarily mean a GPU is idle.</div>
+
 <div class="clusters" id="content"></div>
+<div class="clusters hidden" id="low-content"></div>
 
 <script>
+// Added: thresholds and tab switching.
+const LOW_MEMORY_PERCENT = 50;
+const LOW_UTIL_PERCENT = 10;
+let activeTab = 'all';
+function setTab(tab) {
+  activeTab = tab;
+  document.getElementById('content').classList.toggle('hidden', tab !== 'all');
+  document.getElementById('low-content').classList.toggle('hidden', tab !== 'low');
+  document.getElementById('low-note').style.display = tab === 'low' ? '' : 'none';
+  document.getElementById('all-tab').classList.toggle('active', tab === 'all');
+  document.getElementById('low-tab').classList.toggle('active', tab === 'low');
+}
+document.getElementById('all-tab').addEventListener('click', () => setTab('all'));
+document.getElementById('low-tab').addEventListener('click', () => setTab('low'));
+
+function metric(value) {
+  if (value === null || value === undefined || value === '') return null;
+  const result = Number(value);
+  return Number.isFinite(result) ? result : null;
+}
+function summaryItem(label, value) {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'summary-item';
+  const number = document.createElement('div');
+  number.className = 'summary-number';
+  number.textContent = value;
+  const caption = document.createElement('div');
+  caption.className = 'summary-label';
+  caption.textContent = label;
+  wrapper.append(number, caption);
+  return wrapper;
+}
+function cell(row, value, tag = 'td') {
+  const td = document.createElement(tag);
+  td.textContent = String(value);
+  row.appendChild(td);
+}
+function createLowCard(server, gpu, memPercent, util) {
+  const card = document.createElement('div');
+  card.className = 'low-card';
+  const heading = document.createElement('h2');
+  heading.textContent = `${server} — GPU ${gpu.index}: ${gpu.name || 'Unknown GPU'}`;
+  card.appendChild(heading);
+  const memory = document.createElement('p');
+  memory.textContent = `Memory: ${gpu['memory.used']} / ${gpu['memory.total']} MB (${memPercent.toFixed(1)}%)`;
+  const utilization = document.createElement('p');
+  utilization.textContent = `Utilization: ${util}%`;
+  card.append(memory, utilization);
+
+  // Deduplicate repeated process records within a GPU by PID (and username).
+  const unique = new Map();
+  for (const process of Array.isArray(gpu.processes) ? gpu.processes : []) {
+    const key = `${process.username ?? ''}:${process.pid ?? ''}`;
+    if (!unique.has(key)) unique.set(key, process);
+  }
+  if (unique.size) {
+    const wrap = document.createElement('div');
+    wrap.className = 'process-table-wrap';
+    const table = document.createElement('table');
+    table.className = 'process-table';
+    const header = document.createElement('tr');
+    ['User', 'Command', 'PID', 'GPU memory (MB)'].forEach(label => cell(header, label, 'th'));
+    table.appendChild(header);
+    for (const process of unique.values()) {
+      const row = document.createElement('tr');
+      cell(row, process.username ?? 'Unknown');
+      cell(row, process.command ?? 'Unknown');
+      cell(row, process.pid ?? 'Unknown');
+      cell(row, process.gpu_memory_usage ?? 'Unknown');
+      table.appendChild(row);
+    }
+    wrap.appendChild(table);
+    card.appendChild(wrap);
+  } else {
+    const note = document.createElement('p');
+    note.textContent = 'No process information available.';
+    card.appendChild(note);
+  }
+  return card;
+}
+
 async function loadData() {
   try {
+    // Preserved verbatim from the original HTML: filename and relative path.
     const res = await fetch('gpu_status.json?t=' + Date.now());
+    if (!res.ok) throw new Error(`HTTP ${res.status} loading gpu_status.json`);
     const data = await res.json();
 
-    // Replace this line:
-document.getElementById('timestamp').textContent = "Last update: " + data.timestamp;
-
-// With this function to convert UTC → UTC+8
-function formatUTC8(utcString) {
-    try {
-      // Convert "YYYY-MM-DD HH:mm:ss UTC"
-      // → "YYYY-MM-DDTHH:mm:ssZ" (valid ISO 8601)
-      const isoString = utcString
-        .replace(" UTC", "")
-        .replace(" ", "T") + "Z";
-  
-      const d = new Date(isoString);
-  
-      if (isNaN(d)) return "Invalid timestamp";
-  
-      d.setHours(d.getHours() + 8);
-  
-      return d.toISOString().replace("T", " ").replace(/\..+/, "") + " (UTC+8)";
-    } catch (e) {
-      return "Invalid timestamp";
+    // Original UTC → UTC+8 conversion.
+    function formatUTC8(utcString) {
+      try {
+        const isoString = utcString.replace(' UTC', '').replace(' ', 'T') + 'Z';
+        const d = new Date(isoString);
+        if (isNaN(d)) return 'Invalid timestamp';
+        d.setHours(d.getHours() + 8);
+        return d.toISOString().replace('T', ' ').replace(/\..+/, '') + ' (UTC+8)';
+      } catch (e) { return 'Invalid timestamp'; }
     }
-  }
-
-document.getElementById('timestamp').textContent =
-  "Last update: " + formatUTC8(data.timestamp);
+    document.getElementById('timestamp').textContent =
+      'Last update: ' + formatUTC8(data.timestamp);
 
     const container = document.getElementById('content');
-    container.innerHTML = "";
+    container.innerHTML = '';
+    const lowContainer = document.getElementById('low-content');
+    lowContainer.innerHTML = '';
+    const counts = { servers: 0, online: 0, total: 0, available: 0, low: 0, busy: 0, unknown: 0 };
 
     for (const [server, info] of Object.entries(data.servers)) {
+      counts.servers++;
       const clusterDiv = document.createElement('div');
       clusterDiv.className = 'cluster';
-
       const title = document.createElement('h2');
       title.textContent = server;
       clusterDiv.appendChild(title);
-
-      if (!info.gpus) {
-        clusterDiv.appendChild(document.createTextNode("No GPU data"));
+      if (!info || !Array.isArray(info.gpus)) {
+        clusterDiv.appendChild(document.createTextNode('No GPU data'));
         container.appendChild(clusterDiv);
         continue;
       }
-
+      counts.online++;
       info.gpus.forEach(gpu => {
+        counts.total++;
         const gpuDiv = document.createElement('div');
         gpuDiv.className = 'gpu';
-
-        const name = gpu["name"] || "Unknown GPU";
-        const util = gpu["utilization.gpu"] || 0;
-        const temperature = gpu["temperature.gpu"] || 0;
-        const memUsed = gpu["memory.used"] || 0;
-        const memTotal = gpu["memory.total"] || 1;
+        const name = gpu['name'] || 'Unknown GPU';
+        const util = gpu['utilization.gpu'] || 0;
+        const temperature = gpu['temperature.gpu'] || 0;
+        const memUsed = gpu['memory.used'] || 0;
+        const memTotal = gpu['memory.total'] || 1;
         const memPercent = (memUsed / memTotal * 100).toFixed(1);
 
-        // determine bar color like gpustat
-        let levelClass = "util-low";
-        if (memPercent > 80) levelClass = "util-high";
-        else if (memPercent > 40) levelClass = "util-medium";
+        // Added: summary classifications and low-utilization card.
+        const rawMem = metric(gpu['memory.used']);
+        const rawTotal = metric(gpu['memory.total']);
+        const rawUtil = metric(gpu['utilization.gpu']);
+        if (rawMem === null || rawTotal === null || rawTotal <= 0 || rawUtil === null) {
+          counts.unknown++;
+        } else {
+          const usage = rawMem / rawTotal * 100;
+          if (usage >= LOW_MEMORY_PERCENT && rawUtil <= LOW_UTIL_PERCENT) {
+            counts.low++;
+            lowContainer.appendChild(createLowCard(server, gpu, usage, rawUtil));
+          } else if (usage < 10 && rawUtil < 10) {
+            counts.available++;
+          } else {
+            counts.busy++;
+          }
+        }
 
-        gpuDiv.innerHTML = `
-          <div class="label">
-            <span>GPU ${gpu.index}: ${gpu.name}</span>
-            <span>${memPercent}%</span>
-          </div>
-          <div class="bar-container">
-            <div class="bar ${levelClass}" style="width:${memPercent}%;"></div>
-          </div>
-          <div class="mem">Memory: ${memUsed}/${memTotal} MB (${memPercent}%)</div>
-          <div class="mem">Utilization: ${util}%; Temperature: ${temperature}&deg;C;</div>
-        `;
+        // Original color logic and GPU information layout.
+        let levelClass = 'util-low';
+        if (memPercent > 80) levelClass = 'util-high';
+        else if (memPercent > 40) levelClass = 'util-medium';
+        // Use textContent for external fields to avoid interpreting data as HTML.
+        const label = document.createElement('div');
+        label.className = 'label';
+        const gpuName = document.createElement('span');
+        gpuName.textContent = `GPU ${gpu.index}: ${name}`;
+        const percent = document.createElement('span');
+        percent.textContent = `${memPercent}%`;
+        label.append(gpuName, percent);
+        const barContainer = document.createElement('div');
+        barContainer.className = 'bar-container';
+        const bar = document.createElement('div');
+        bar.className = `bar ${levelClass}`;
+        bar.style.width = `${Math.max(0, Math.min(100, Number(memPercent) || 0))}%`;
+        barContainer.appendChild(bar);
+        const memLine = document.createElement('div');
+        memLine.className = 'mem';
+        memLine.textContent = `Memory: ${memUsed}/${memTotal} MB (${memPercent}%)`;
+        const utilLine = document.createElement('div');
+        utilLine.className = 'mem';
+        utilLine.textContent = `Utilization: ${util}%; Temperature: ${temperature}°C;`;
+        gpuDiv.append(label, barContainer, memLine, utilLine);
         clusterDiv.appendChild(gpuDiv);
       });
-
       container.appendChild(clusterDiv);
     }
-
+    const summary = document.getElementById('summary');
+    summary.replaceChildren(
+      summaryItem('Servers with GPU data', `${counts.online}/${counts.servers}`),
+      summaryItem('Total GPUs', counts.total),
+      summaryItem('Likely available', counts.available),
+      summaryItem('Busy / Other', counts.busy),
+      summaryItem('Low-utilization', counts.low)
+    );
+    document.getElementById('low-count').textContent = counts.low;
+    if (!counts.low) {
+      const empty = document.createElement('p');
+      empty.className = 'empty';
+      empty.textContent = 'No GPUs meet the high-memory / low-utilization thresholds.';
+      lowContainer.appendChild(empty);
+    }
   } catch (err) {
-    document.getElementById('timestamp').textContent = "Error loading GPU data.";
+    document.getElementById('timestamp').textContent = 'Error loading GPU data.';
     console.error(err);
   }
 }
-
 loadData();
 setInterval(loadData, 60000);
 </script>
-
 </body>
 </html>
